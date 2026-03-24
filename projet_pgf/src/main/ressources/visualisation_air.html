@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualisation – Qualité de l’air (Châtelet)</title>
+
+    <!-- Tailwind + Plotly -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen p-8">
+    <div class="max-w-7xl mx-auto">
+
+        <!-- HEADER -->
+        <div class="bg-white rounded-lg shadow-2xl p-6 mb-8">
+            <h1 class="text-4xl font-bold text-gray-800 mb-2"> Visualisation – Qualité de l’air (Châtelet)</h1>
+            <p class="text-gray-600">Analyse automatique du dataset : PM10 – TEMP – HUMI</p>
+        </div>
+
+        <!-- DATASET INFO -->
+        <div class="bg-white rounded-lg shadow-2xl p-6 mb-8">
+            <h2 class="text-xl font-bold text-gray-800 mb-2">Données chargées automatiquement</h2>
+            <p>Dataset : <span id="datasetName" class="font-semibold">qualite-de-lair-chatelet.csv</span></p>
+        </div>
+
+        <!-- GRAPHIQUES -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+            <!-- Courbe PM10 -->
+            <div class="bg-white rounded-lg shadow-2xl p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4"> Évolution du PM10 dans le temps</h2>
+                <div id="pm10TimeChart"></div>
+            </div>
+
+            <!-- TEMP vs PM10 -->
+            <div class="bg-white rounded-lg shadow-2xl p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4"> Relation TEMP → PM10</h2>
+                <div id="tempPm10Chart"></div>
+            </div>
+
+            <!-- HUMI vs PM10 -->
+            <div class="bg-white rounded-lg shadow-2xl p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4"> Relation HUMI → PM10</h2>
+                <div id="humiPm10Chart"></div>
+            </div>
+
+            <!-- Histogramme PM10 -->
+            <div class="bg-white rounded-lg shadow-2xl p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4"> Histogramme PM10</h2>
+                <div id="pm10Hist"></div>
+            </div>
+
+        </div>
+
+        <!-- STATISTIQUES -->
+        <div class="bg-white rounded-lg shadow-2xl p-6 mt-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4"> Statistiques</h2>
+            <div id="statsTable"></div>
+        </div>
+
+    </div>
+
+    <script>
+        // Nom du fichier CSV (doit être dans le même dossier que ce HTML)
+        const csvFile = "qualite-de-lair-chatelet.csv";
+
+        // Chargement du CSV
+        fetch(csvFile)
+            .then(response => response.text())
+            .then(text => parseCSV(text))
+            .catch(() => {
+                document.getElementById("datasetName").innerText = " Erreur : impossible de lire le fichier (sécurité navigateur)";
+            });
+
+        function parseCSV(csv) {
+    const lines = csv.trim().split("\n");
+
+    const data = [];
+
+    for (let i = 1; i < lines.length; i++) {
+        const v = lines[i].split(";");
+
+        if (v.length < 4) continue; // sécurité si ligne incomplète
+
+        // Nettoyage des valeurs CSV
+        const raw_pm10 = v[1].trim().replace("<", "").replace(",", ".");
+        const raw_temp = v[2].trim().replace(",", ".");
+        const raw_humi = v[3].trim().replace(",", ".");
+
+        const pm10 = parseFloat(raw_pm10);
+        const temp = parseFloat(raw_temp);
+        const humi = parseFloat(raw_humi);
+
+        // On garde uniquement les valeurs valides
+        if (!isNaN(pm10) && !isNaN(temp) && !isNaN(humi)) {
+            data.push({
+                datetime: v[0].trim(),
+                pm10: pm10,
+                temp: temp,
+                humi: humi
+            });
+        }
+    }
+
+    console.log(" Données valides chargées :", data.length);
+
+    createCharts(data);
+    createStats(data);
+}
+
+
+        function createCharts(data) {
+
+            //  1 — PM10 dans le temps
+            Plotly.newPlot("pm10TimeChart", [{
+                x: data.map(d => d.datetime),
+                y: data.map(d => d.pm10),
+                type: "scatter",
+                mode: "lines",
+                line: { color: "#764ba2", width: 2 }
+            }], {
+                xaxis: { title: "Temps" },
+                yaxis: { title: "PM10 (µg/m³)" },
+                paper_bgcolor: "rgba(0,0,0,0)",
+                plot_bgcolor: "rgba(0,0,0,0)"
+            });
+
+            //  2 — TEMP → PM10
+            Plotly.newPlot("tempPm10Chart", [{
+                x: data.map(d => d.temp),
+                y: data.map(d => d.pm10),
+                mode: "markers",
+                marker: { size: 6, color: "#ff7f7f" }
+            }], {
+                xaxis: { title: "TEMP (°C)" },
+                yaxis: { title: "PM10" },
+                paper_bgcolor: "rgba(0,0,0,0)"
+            });
+
+            //  3 — HUMI → PM10
+            Plotly.newPlot("humiPm10Chart", [{
+                x: data.map(d => d.humi),
+                y: data.map(d => d.pm10),
+                mode: "markers",
+                marker: { size: 6, color: "#4ea8de" }
+            }], {
+                xaxis: { title: "Humidité (%)" },
+                yaxis: { title: "PM10" },
+                paper_bgcolor: "rgba(0,0,0,0)"
+            });
+
+            //  4 — Histogramme PM10
+            Plotly.newPlot("pm10Hist", [{
+                x: data.map(d => d.pm10),
+                type: "histogram",
+                marker: { color: "#a78bfa" }
+            }], {
+                xaxis: { title: "PM10" },
+                yaxis: { title: "Fréquence" },
+                paper_bgcolor: "rgba(0,0,0,0)"
+            });
+        }
+
+        //  5 — Statistiques globales
+        function createStats(data) {
+
+            const arr = k => data.map(d => d[k]);
+
+            const mean = a => a.reduce((x, y) => x + y, 0) / a.length;
+            const min  = a => Math.min(...a);
+            const max  = a => Math.max(...a);
+
+            const table = `
+                <table class="min-w-full divide-y divide-gray-300">
+                    <thead class="bg-purple-600 text-white">
+                        <tr>
+                            <th class="px-6 py-3">Métrique</th>
+                            <th class="px-6 py-3">Valeur</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+
+                        <tr><td class="px-6 py-3 font-semibold">Moyenne PM10</td><td>${mean(arr("pm10")).toFixed(2)}</td></tr>
+                        <tr><td class="px-6 py-3 font-semibold">PM10 min</td><td>${min(arr("pm10"))}</td></tr>
+                        <tr><td class="px-6 py-3 font-semibold">PM10 max</td><td>${max(arr("pm10"))}</td></tr>
+
+                        <tr><td class="px-6 py-3 font-semibold">Moyenne TEMP</td><td>${mean(arr("temp")).toFixed(2)}</td></tr>
+                        <tr><td class="px-6 py-3 font-semibold">Moyenne HUMI</td><td>${mean(arr("humi")).toFixed(2)}</td></tr>
+
+                        <tr><td class="px-6 py-3 font-semibold">Nombre total de mesures</td><td>${data.length}</td></tr>
+
+                    </tbody>
+                </table>
+            `;
+
+            document.getElementById("statsTable").innerHTML = table;
+        }
+
+    </script>
+
+</body>
+</html>

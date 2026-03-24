@@ -1,0 +1,40 @@
+2025.12.07 12:37:25 INFO  Started: Metals version 1.6.4 in folders 'H:\Documents\ING2\s1\Prog Fonc\projet\projet_pgf' for client Visual Studio Code 1.106.3.
+2025.12.07 12:37:27 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2025.12.10 08:15:53 INFO  Started: Metals version 1.6.4 in folders 'H:\Documents\ING2\s1\Prog Fonc\projet\projet_pgf' for client Visual Studio Code 1.106.3.
+2025.12.10 08:15:59 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2025.12.10 08:17:01 INFO  Shutting down server
+2025.12.10 08:17:01 INFO  shutting down Metals
+2025.12.10 08:17:01 INFO  Exiting server
+2025.12.10 08:22:24 INFO  Started: Metals version 1.6.4 in folders 'H:\Documents\ING2\s1\Prog Fonc\projet\projet_pgf' for client Visual Studio Code 1.106.3.
+2025.12.10 08:22:27 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2026.01.28 14:21:26 INFO  Started: Metals version 1.6.4 in folders 'H:\Documents\ING2\s1\Prog Fonc\projet\projet_pgf' for client Visual Studio Code 1.106.3.
+2026.01.28 14:21:30 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+Jan 28, 2026 2:21:42 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace
+Jan 28, 2026 3:54:13 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace
+2026.02.04 14:24:13 INFO  Started: Metals version 1.6.5 in folders 'H:\Documents\ING2\s1\Prog Fonc\projet\projet_pgf' for client Visual Studio Code 1.106.3.
+2026.02.04 14:24:13 INFO  Memory monitor started
+2026.02.04 14:24:18 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2026.02.08 19:49:28 INFO  Shutting down server
+2026.02.08 19:49:28 INFO  Memory monitor stopped
+2026.02.08 19:49:28 INFO  shutting down Metals
+2026.02.08 19:49:28 INFO  Exiting server
+2026.02.08 19:49:54 INFO  Started: Metals version 1.6.5 in folders 'H:\Documents\ING2\s1\Prog Fonc\projet\projet_pgf' for client Visual Studio Code 1.106.3.
+2026.02.08 19:49:54 INFO  Memory monitor started
+2026.02.08 19:49:58 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2026.02.08 19:58:38 INFO  Shutting down server
+2026.02.08 19:58:38 INFO  Memory monitor stopped
+2026.02.08 19:58:38 INFO  shutting down Metals
+2026.02.08 19:58:38 INFO  Exiting server
+2026.02.08 19:59:07 INFO  Started: Metals version 1.6.5 in folders 'H:\Documents\ING2\s1\Prog Fonc\projet\projet_pgf' for client Visual Studio Code 1.106.3.
+2026.02.08 19:59:07 INFO  Memory monitor started
+2026.02.08 19:59:11 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2026.02.16 17:24:55 INFO  Started: Metals version 1.6.5 in folders 'H:\Documents\ING2\s1\Prog Fonc\projet\projet_pgf' for client Visual Studio Code 1.106.3.
+2026.02.16 17:24:55 INFO  Memory monitor started
+2026.02.16 17:25:00 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2026.02.18 13:04:58 INFO  Started: Metals version 1.6.5 in folders 'H:\Documents\ING2\s1\Prog Fonc\projet\projet_pgf' for client Visual Studio Code 1.106.3.
+2026.02.18 13:04:58 INFO  Memory monitor started
+2026.02.18 13:05:02 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2026.02.18 16:42:48 INFO  no build target found for H:\Documents\ING2\s1\Prog Fonc\projet\projet_pgf\build.sbt. Using presentation compiler with project's scala-library version: 3.3.7
+2026.02.18 16:42:56 INFO  no build target found for H:\Documents\ING2\s1\Prog Fonc\projet\projet_pgf\build.sbt. Using presentation compiler with project's scala-library version: 3.3.7
